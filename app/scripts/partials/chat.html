@@ -1,0 +1,64 @@
+<!--
+Copyright (c) 2013 Thomas Falkenberg.
+All rights reserved. This program and the accompanying materials
+are made available under the terms of the GNU Public License v3.0
+which accompanies this distribution, and is available at
+http://www.gnu.org/licenses/gpl.html
+
+Contributors:
+    Thomas Falkenberg - initial API and implementation
+    Deutsche Telekom AG- Telekom Laboratories Darmstadt
+-->
+
+	<div  ng-controller="Chat">
+		<!--show Messages-->
+		<div>
+			<div class="container" ng-repeat="chat in sharedScope.chats">
+				<div ng-repeat="contact in sharedScope.contacts">
+					<div ng-show="contact.sip==chat.partner.substring(4)" ng-include="'scripts/partials/oneContact.html'"></div>
+				</div>	
+				<ul >
+			        <li ng-repeat="message in chat.messages" class="sprechblase {{getSide(message,chat)}}Angle">
+			        {{message.first("From").uri}}
+			       	 <div class="inputArea"><label class="status-{{message.state}}" >x</label><label class="right">{{message.body}}</label></div>
+					</li>
+				</ul>
+				<div class="inputArea">	
+				<form ng-submit="sendMessage(chat.partner, chat.newMessage);chat.newMessage='';">
+					<input type="text" ng-model="chat.newMessage">
+					<button type="submit" class="chat" >Send</button>
+				</form>
+				</div>
+    		</div>
+			
+			
+			<!-- 				<h4 ng-click="sendPendingMessages()">Chat with: {{chat.partner}}</h4>
+				<li ng-repeat="message in chat.messages">
+					<p>{{message.first("From").value.getDisplayable()}}:
+						{{message.body}}<label class="status-{{message.state}}" >x</label></p>
+				</li> New Message:
+				<input ng-model="chat.newMessage">
+				<button ng-click="sendMessage(chat.partner, chat.newMessage);chat.newMessage='';">send</button>
+
+
+
+			</div> -->
+			
+
+		</div>
+
+		<div 	class="container">
+			<!--Send Messages-->
+
+
+			<div class="inputArea">	
+					<input ng-model="sharedScope.newChatPartner">
+					<button class="chat" ng-click="sharedScope.newEmptyContact(sharedScope.newChatPartner);sharedScope.createChat('sip:'+sharedScope.newChatPartner);sharedScope.newChatPartner=''"	>New</button>
+				</div>
+
+		</div>
+
+
+	</div>
+
+

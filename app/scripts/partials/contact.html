@@ -1,0 +1,24 @@
+<!--
+Copyright (c) 2013 Thomas Falkenberg.
+All rights reserved. This program and the accompanying materials
+are made available under the terms of the GNU Public License v3.0
+which accompanies this distribution, and is available at
+http://www.gnu.org/licenses/gpl.html
+
+Contributors:
+    Thomas Falkenberg - initial API and implementation
+    Deutsche Telekom AG- Telekom Laboratories Darmstadt
+-->
+
+<div class="container" ng-controller="Contact">
+		<ul class="contacts" >
+	        <li ng-repeat="contact in sharedScope.contacts">
+	        	<div  ng-include="'scripts/partials/oneContact.html'"></div>
+	        	<div class="inputArea"><label></label> <a href="#chat" ng-click="sharedScope.createChat('sip:'+contact.sip)"><label class="right  smallChatButton" ></label> <a href="#call" ng-click="contact.call()"> <label class="right smallCallButton"></label></a></div>
+	        </li>
+		</ul>
+</div>
+
+
+
+
