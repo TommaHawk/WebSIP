@@ -71,7 +71,7 @@ define(['services/services','services/WebSocketService','services/sharedScope','
     			    
     			    // private attributes
     			    
-    			    this.network_type = "WebRTC";
+//    			    this.network_type = "WebRTC";
     			    this.listen_ip="fritz.box";
     			    this._listen_port = 5060;
     			    

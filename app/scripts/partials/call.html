@@ -14,23 +14,34 @@ Contributors:
 
 <div class="container callContainer" ng-controller="Call" ng-show="sharedScope.registration.state==sharedScope.REGISTERED"  >
 	<div class="calls">
-			<div ng-show="sharedScope.getCurrentCall()">
+			<div ng-repeat="call in sharedScope.getActiveCalls()">
 			
 				<div ng-repeat="contact in sharedScope.contacts">
-					<div ng-show="contact.sip==sharedScope.getCurrentCall().partner.substring(4)" ng-include="'scripts/partials/oneContact.html'"></div>
+					<div ng-show="contact.sip==call.partner.substring(4)" ng-include="'scripts/partials/oneContact.html'"></div>
 				</div>	
-				<div class="inputArea"><label>{{sharedScope.getCurrentCall().state}}</label><label class="right">{{sharedScope.getCurrentCall().time| date:'mm:ss'}}</label></div>
+				<div class="inputArea"><label>{{call.state}}</label><label class="right">{{call.time| date:'mm:ss'}}</label></div>
+    		
+		<div class="callButtons">
+		<!--Send Messages-->
+			<div class="inputArea">	<label >To: {{call.partner}}</label>  </div>
+			<div class="inputArea">	
+				<button class="register call" ng-show="call.state!=sharedScope.INCOMING" ng-disabled="disabled">Call</button>
+				<button class="register call" ng-click="answer(call)" 				ng-show="call.state==sharedScope.INCOMING">Answer</button>
+		      	<button class=" unregister call" ng-click="end(call)"	ng-show=" (call.state!=sharedScope.ACTIVE && call.state!=sharedScope.INCOMING)" >Cancel</button>
+		      	<button class=" unregister call" ng-click="end(call)" 				ng-show="call.state==sharedScope.INCOMING">Decline</button>
+		      	<button class=" unregister call" ng-click="end(call)" 	ng-show="call.state==sharedScope.ACTIVE">End</button>
+		      	
+			</div>
+      
+		</div>
+    		
     		</div>
 	</div>
 		<div class="callButtons">
 		<!--Send Messages-->
 			<div class="inputArea">	<label>To: </label> <input ng-model="sharedScope.newCallPartner"></div>
 			<div class="inputArea">	
-				<button class="register call" ng-click="sharedScope.newEmptyContact(sharedScope.newCallPartner);call(sharedScope.newCallPartner);sharedScope.newCallPartner=''"								ng-show="!sharedScope.getCurrentCall() || sharedScope.getCurrentCall().state!=sharedScope.INCOMING" ng-disabled="sharedScope.getCurrentCall()">Call</button>
-				<button class="register call" ng-click="answer(sharedScope.getCurrentCall())" 				ng-show="sharedScope.getCurrentCall().state==sharedScope.INCOMING">Answer</button>
-		      	<button class=" unregister call" ng-click="end(sharedScope.getCurrentCall())"	ng-show="!sharedScope.getCurrentCall() || (sharedScope.getCurrentCall().state!=sharedScope.ACTIVE && sharedScope.getCurrentCall().state!=sharedScope.INCOMING)" ng-disabled="!sharedScope.getCurrentCall()">Cancel</button>
-		      	<button class=" unregister call" ng-click="end(sharedScope.getCurrentCall())" 				ng-show="sharedScope.getCurrentCall().state==sharedScope.INCOMING">Decline</button>
-		      	<button class=" unregister call" ng-click="end(sharedScope.getCurrentCall())" 	ng-show="sharedScope.getCurrentCall().state==sharedScope.ACTIVE"									ng-disabled="!sharedScope.getCurrentCall()">End</button>
+				<button class="register call" ng-click="sharedScope.newEmptyContact(sharedScope.newCallPartner);call(sharedScope.newCallPartner);sharedScope.newCallPartner=''"	>Call</button>
 		      	
 			</div>
       

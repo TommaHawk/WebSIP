@@ -11,11 +11,16 @@ Contributors:
 -->
 
    <div  ng-controller="Media">
+		
+				
+		
+		
 		<ul class="medias" >
+	        
 	        <li ng-repeat="media in sharedScope.medias"  >
 	        	<div  class="videoDiv" >
 	        		<video ng-show="media.type=='AV'" autoplay="autoplay" src="{{media.src}}" width="188" height="140" ></video>
-	        		<audio ng-show="media.type=='A'" autoplay="autoplay" src="{{media.src}}" width="188" height="140" ></audio>
+	        		<audio ng-show="media.type=='A'&& {{!media.isLocal}}" autoplay="autoplay" src="{{media.src}}" width="188" height="140" ></audio>
 				</div>
 	        </li>
 		</ul>

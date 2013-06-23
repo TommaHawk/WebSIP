@@ -22,13 +22,15 @@ define(['controllers/controllers', 'services/SipConnection','services/sharedScop
     	
     	$scope.sharedScope=sharedScope;
     	$scope.sharedScope.connection=new SipConnection();
-    	$scope.sharedScope.connection.initialize();
-    	$scope.sharedScope.connection.connect();
+    	$scope.sharedScope.outbound_proxy_address ='192.168.178.40:10060';
+//    	$scope.sharedScope.connection.initialize();
+//    	$scope.sharedScope.connection.connect();
     	
     	
     	$scope.register=function(){
-    		
-    		$scope.sharedScope.connection.register();
+    		if (!$scope.sharedScope.connection.stack)
+    		{$scope.sharedScope.connection.initialize();}
+    			$scope.sharedScope.connection.register();
     	};
     	$scope.check= function() {
     		try {

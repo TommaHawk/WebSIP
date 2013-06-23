@@ -53,6 +53,7 @@ define(['services/services','services/sharedScope'], function(services) {
     				};
     				
     			this.onSockData = function(event) {
+    				log(event.data);
     				if(typeof(event.data) == 'string'){
     					sharedScope.connection.received(event); //use Callback function???
     				}else{

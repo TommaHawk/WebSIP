@@ -57,6 +57,7 @@ define(['services/services'], function(services) {
     		sharedScope.error="";
     		sharedScope.registration=null;
     		
+    		
     		sharedScope.createMedia = function(isLocal,type) {
     			if (sharedScope.Media === undefined){
     				throw new Error("no Media-Service");
@@ -153,7 +154,15 @@ define(['services/services'], function(services) {
 			sharedScope.stateClass = function() {
 				return (sharedScope.registration.state==sharedScope.REGISTERED) ? sharedScope.REGISTERED: "";
 			}
-			
+			sharedScope.getActiveCalls=function(){
+				var activeCalls= new Array();
+				for ( var int = 0; int < sharedScope.calls.length; int++) {
+    				if(	 sharedScope.calls[int].isNotEnded()){
+    					activeCalls.push(sharedScope.calls[int]);
+					}
+    			}
+				return activeCalls;
+			};
     		sharedScope.getCurrentCall = function(){
     			for ( var int = 0; int < sharedScope.calls.length; int++) {
     				if(	 sharedScope.calls[int].isNotEnded()){
@@ -189,6 +198,8 @@ define(['services/services'], function(services) {
     			
 			};
 			
+			
+			
 			sharedScope.newContact = function(name,surname,sip,imgURL) {
 				var contact=null;
 				var deleteIndex;
@@ -209,10 +220,12 @@ define(['services/services'], function(services) {
 			};
     		
     		sharedScope.getLocalMedia = function() {
+    			
     			for ( var int = 0; int < sharedScope.medias.length; int++) {
 					var media = sharedScope.medias[int];
 					if (media.isLocal){return media;};
 				}
+    			
     			sharedScope.createMedia(true,"A");
     			return sharedScope.getLocalMedia();
     		};

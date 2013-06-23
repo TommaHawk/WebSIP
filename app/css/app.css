@@ -9,3 +9,340 @@
 *    Thomas Falkenberg - initial API and implementation
 *    Deutsche Telekom AG- Telekom Laboratories Darmstadt
 */
+
+body {
+  padding-top: 20px;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size:12px;
+   color: #000;
+	background-color: #FFCD81;
+}
+
+.chats {
+  list-style: none;
+}
+
+.callButtons{
+	height: 45px;
+}
+.calls{
+	min-height: 75px;
+}
+.callContainer{
+	min-height: 120px;
+}
+.hiddenAudio{
+	display: none;
+}
+.videoDiv{
+	width:auto; 
+	height:auto; 
+	background:white url(../img/loading-small.gif) no-repeat center;
+}
+.thumb {
+  float: left;
+  margin: -1em 1em 1.5em 0em;
+  padding-bottom: 1em;
+  height: 100px;
+  width: 100px;
+}
+
+.chats li {
+  clear: both;
+  height: auto;
+  padding-top: 5px;
+}
+.status-waiting{
+	color: orange;
+	float:left;
+}
+.status-failed{
+	color: red;
+	float:left;
+}
+.status-sent{
+	color: green;
+	float:left;
+}
+.error{
+	color:red;
+}
+
+button.register{
+	
+	width: 100%;
+		
+	
+	background: #66CC33; /*alternative Hintergrundfarbe für IE*/
+	background: -webkit-gradient(linear, 0 0, 0 90%, from(#66CC33), to(#295115));
+	background: -moz-linear-gradient(top, #66CC33, #295115 90%);
+	
+	
+}
+button{
+	-moz-border-radius: 6px;
+	-webkit-border-radius: 6px ;
+	border-radius: 6px;
+		font-weight:bold;
+	-webkit-box-shadow: 0 1px 1px rgba(0,0,0,.05);
+    -moz-box-shadow: 0 1px 1px rgba(0,0,0,.05);
+    box-shadow: 0 1px 1px rgba(0,0,0,.05);
+}
+button.unregister{
+	width: 100%;
+	background: #FF3300; /*alternative Hintergrundfarbe für IE*/
+	background: -webkit-gradient(linear, 0 0, 0 90%, from(#FF3300), to(#991F00));
+	background: -moz-linear-gradient(top, #FF3300, #991F00 90%);
+	
+	}
+button.call{
+	width: 49%;
+}
+button.chat{
+	width: 60px;
+	background: #FFFFFF; /*alternative Hintergrundfarbe für IE*/
+	background: -webkit-gradient(linear, 0 0, 0 50%, from(#FFFFFF  ), to(#AFAFAF));
+	background: -moz-linear-gradient(top, #FFFFFF , #AFAFAF 50%);
+	
+}
+label{
+	float:left;
+	white-space: nowrap;
+}
+.right{
+	float:right;
+	max-width:140px;
+	overflow: hidden;
+	text-align: right;
+}
+.right:HOVER{
+	overflow: visible;
+}
+
+.contacts li:first-child { border-top: none;}
+.contacts li:last-child { border-bottom: none; }
+.contacts li{
+	border: 1px solid #6A6A6A;
+	border-left:none;
+	border-right:none;
+	padding-top: 3px;
+	padding-bottom: 3px;
+	
+}
+.smallCallButton{
+	height: 16px;
+	width: 16px;
+	cursor: pointer;
+	margin-left:3px;
+	background: #66CC33; /*alternative Hintergrundfarbe für IE*/
+	
+	background-image: url(../img/phone.png) ;
+	
+	background-repeat:no-repeat;
+	background-position: center;
+	-moz-border-radius: 2px;
+	-webkit-border-radius: 2px ;
+	border-radius: 2px;
+		
+	-webkit-box-shadow: 0 1px 1px rgba(0,0,0,.05);
+    -moz-box-shadow: 0 1px 1px rgba(0,0,0,.05);
+    box-shadow: 0 1px 1px rgba(0,0,0,.05);
+}
+.smallChatButton{
+	cursor: pointer;
+	margin-left:3px;
+	height: 16px;
+	width: 16px;
+	background-repeat:no-repeat;
+	background-position: center;
+	-moz-border-radius: 2px;
+	-webkit-border-radius: 2px ;
+	border-radius: 2px;
+	background-image: url(../img/mail.png) ;
+	
+}
+	
+input{
+	background: #FFFFFF; /*alternative Hintergrundfarbe für IE*/
+	background: -webkit-gradient(linear, 0 0, 0 80%, from(#EDEDED), to(#FFFFFF));
+	background: -moz-linear-gradient(top, #EDEDED, #FFFFFF 80%);
+	 border: 1px solid #C2C2C2;
+	 
+	 width:100px;
+	 height:14px;
+	 -webkit-border-radius: 3px;
+           -moz-border-radius: 3px;
+                border-radius: 3px;
+        -webkit-box-shadow: 0 1px 1px rgba(0,0,0,.05);
+           -moz-box-shadow: 0 1px 1px rgba(0,0,0,.05);
+                box-shadow: 0 1px 1px rgba(0,0,0,.05);
+}
+.inputArea{
+	min-height: 20px;
+}
+ul{
+		list-style-type:none;
+		padding:0;
+}
+li{
+	list-style-position: inside;
+}
+.medias{
+	left: 0px;
+	height: auto;
+}
+.menu{
+	 margin: 0 auto 5px;
+	width: 210px;
+	height: 30px;
+	top:0px;
+	left:0px;
+	padding: 0;
+	border: none;
+	outline: none;
+	font-weight:bold;
+	
+	background: #FFFFFF; /*alternative Hintergrundfarbe für IE*/
+	background: -webkit-gradient(linear, 0 0, 0 15%, from(#EDEDED), to(#FFFFFF));
+	background: -moz-linear-gradient(top, #EDEDED, #FFFFFF 15%);
+
+	margin: 0 auto 10px;
+    -moz-border-radius: 6px 6px 0 0;
+	-webkit-border-radius: 6px 6px 0 0;
+	border-radius: 6px 6px 0 0;
+}
+.menu li a.selected{
+	opacity: 1;
+}
+.menu li a{
+	width:50px;
+	height:24px;
+	float:left;
+	opacity: .6;
+	cursor: pointer;
+	text-decoration: none;
+	text-align:center;
+	padding-top:6px;
+	border: 1px solid #CCC;
+	border-top:none;
+	border-bottom:none;
+	-moz-border-radius: 6px 6px 0 0;
+	-webkit-border-radius: 6px 6px 0 0;
+	border-radius: 6px 6px 0 0;
+	color: #000;
+	background: #666;
+	background: -moz-linear-gradient(top, #909090, #6A6A6A 50%);
+	background: -webkit-gradient(linear, 0 0, 0 50%, from(#909090), to(#6A6A6A));
+	background: -webkit-linear-gradient(top, #909090, #6A6A6A);
+	background: -o-linear-gradient(top, #909090, #6A6A6A);
+	background: -ms-linear-gradient(top, #909090, #6A6A6A);
+	background: linear-gradient(top, #909090, #6A6A6A);
+	overflow: hidden;
+}
+.menu li:first-child  a{ border-left: none;width:52px; }
+.menu li:last-child a{ border-right: none; width:52px;}
+.avatar{
+	height: 48px;
+	width: 48px;
+	 -webkit-border-radius: 3px;
+           -moz-border-radius: 3px;
+                border-radius: 3px;
+        -webkit-box-shadow: 0 1px 2px rgba(0,0,0,.05);
+           -moz-box-shadow: 0 1px 2px rgba(0,0,0,.05);
+                box-shadow: 0 1px 2px rgba(0,0,0,.05);
+}
+.view{
+		background: #6A6A6A;
+		
+	
+		max-width: 210px;
+        margin: 0 auto 0px;
+	 	padding-bottom:0px;
+        -webkit-border-radius: 6px;
+           -moz-border-radius: 6px;
+                border-radius: 6px;
+        -webkit-box-shadow: 0 1px 2px rgba(0,0,0,.05);
+           -moz-box-shadow: 0 1px 2px rgba(0,0,0,.05);
+                box-shadow: 0 1px 2px rgba(0,0,0,.05);
+}
+.container{
+	
+	background: #FFFFFF; /*alternative Hintergrundfarbe für IE*/
+	background: -webkit-gradient(linear, 0 0, 0 15%, from(#AFAFAF  ), to(#FFFFFF));
+	background: -moz-linear-gradient(top, #AFAFAF , #FFFFFF 15%);
+	
+		
+	-webkit-transition:all 1s ease;
+    -moz-transition:all 1s ease;
+    
+	max-width: 200px;
+        padding: 10px 10px 10px 10px;
+        margin: 0 auto 4px;
+	 border: 1px solid #AFAFAF ;
+        -webkit-border-radius: 6px;
+           -moz-border-radius: 6px;
+                border-radius: 6px;
+        -webkit-box-shadow: 0 1px 2px rgba(0,0,0,.05);
+           -moz-box-shadow: 0 1px 2px rgba(0,0,0,.05);
+                box-shadow: 0 1px 2px rgba(0,0,0,.05);
+}
+
+.sprechblase {
+	position:relative;
+	padding:5px;
+	width: 158px;
+	margin:5px;;
+	color:#000;
+	
+	-webkit-border-radius:5px;
+	-moz-border-radius:5px;
+	border-radius:5px;
+	margin-top: 10px;
+}
+.sprechblase.leftAngle {
+	background:#f3961c;
+	background:-webkit-gradient(linear, 0 0, 0 100%, from(#E5F7FF), to(#3AB2EB));
+	background:-moz-linear-gradient(#E5F7FF, #3AB2EB);
+	background:-o-linear-gradient(#E5F7FF, #3AB2EB);
+	background:linear-gradient(#E5F7FF, #3AB2EB);
+	margin-left:20px;
+}
+
+.sprechblase.rightAngle {
+	background:#f3961c;
+	background:-webkit-gradient(linear, 0 0, 0 100%, from(#FFFBE0), to(#C8E207));;
+	background:-moz-linear-gradient(#FFFBE0, #C8E207);
+	background:-o-linear-gradient(#FFFBE0, #C8E207);
+	background:linear-gradient(#FFFBE0, #C8E207);
+	margin-right:20px;
+}
+.sprechblase:after {
+	content:"";
+	position:absolute;
+	bottom:-5px; 
+	left:50px; 
+	border-width:5px 5px 0; 
+	border-style:solid;
+    display:block; 
+    width:0;
+    
+}
+
+.sprechblase.leftAngle:after {
+	bottom:6px; 
+	left:-20px; 
+	top:auto;
+	border-width:15px 20px 0px 0;
+	
+	border-color:transparent #3AB2EB;
+}
+
+.sprechblase.rightAngle:after {
+	bottom:6px; 
+	right:-20px; 
+	top:auto;
+    left:auto;
+	border-width:15px 0 0px 20px;
+	
+	border-color:transparent #C8E207;
+}

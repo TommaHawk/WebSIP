@@ -14,10 +14,10 @@
 /*global define
 */
 
-define(['services/services','services/sharedScope'], function(services) {
+define(['services/services','services/sharedScope','services/SDPManipulator'], function(services) {
   'use strict';
   return services.factory('Call', [
-    	'$rootScope','sharedScope',function($rootScope,sharedScope){
+    	'$rootScope','sharedScope','SDPManipulator',function($rootScope,sharedScope,SDPManipulator){
     		
     		function Call(stack,localUri,partner) {
     			var that=this;
@@ -64,12 +64,12 @@ define(['services/services','services/sharedScope'], function(services) {
 					}
 				};
 				this.getnewPeerConnection = function() {
-					 var pc_config = {"iceServers": [{"url": "stun:stun.l.google.com:19302"}]};
+					 var pc_config = {iceServers: [{"url": "stun:stun.l.google.com:19302"}]};
 					 if (navigator.mozGetUserMedia) {
 						 return new mozRTCPeerConnection(pc_config);
 					 }
 					 else if (navigator.webkitGetUserMedia) {
-						 return new webkitRTCPeerConnection(pc_config);
+						 return new webkitRTCPeerConnection(pc_config,{"mandatory":{"OfferToReceiveAudio":true,"OfferToReceiveVideo":false}});
 					 } else {
 						 throw new Error("No WebRTC supported");
 					 }
@@ -94,13 +94,12 @@ define(['services/services','services/sharedScope'], function(services) {
     				    
     				    if (that.localMedia) {
           				 	
-      				    	that.peerConn.addStream(that.localMedia.stream);
-      				    	log("local Media added");
+          				 		that.peerConn.addStream(that.localMedia.stream);
       				    };
       				    
     				   
     				};
-    				
+
     				//add SDP Description to PeerConnection. and Start ICE 
     				//use Call.state to decide if is answer or offer 
     				//By Answer get RemoteDescription by ua.request.body
@@ -108,7 +107,10 @@ define(['services/services','services/sharedScope'], function(services) {
     				var offer= null;
  				    if (that.state == sharedScope.ACCEPTING && that.ua != null && that.ua.request != null) {
  				    	var sdp = that.ua.request.body;//{};
-// 				    	 sdp.sdp=that.ua.request.body;
+ 				    	var sdpManipulator= new SDPManipulator(sdp);
+ 				    	sdp=sdpManipulator.doRFC5939();
+ 				    	
+ 				    	// 				    	 sdp.sdp=that.ua.request.body;
 //	                        sdp.type="offer";
  				    	log(sdp);
 	                        var sdpBody=new RTCSessionDescription({ type: "offer", sdp: sdp });
@@ -140,16 +142,6 @@ define(['services/services','services/sharedScope'], function(services) {
 				};
 				
 				this.setLocal = function(sdp) {
-					sdp.sdp=sdp.sdp.replace(/^.*m=video.*$/mg, "");
-					sdp.sdp=sdp.sdp.replace(/ video/g, "");
-					sdp.sdp=sdp.sdp.replace(/^.*101 red.*$/mg, "");
-					sdp.sdp=sdp.sdp.replace(/^.*VP8.*$/mg, "");
-					sdp.sdp=sdp.sdp.replace(/^.*102 ulpfec.*$/mg, "");
-					sdp.sdp=sdp.sdp.replace(/^.*a=mid:video.*$/mg, "");
-					sdp.sdp =sdp.sdp.replace("\r\n\r\n","\r\n");
-					sdp.sdp =sdp.sdp.replace("\r\n\r\n","\r\n");
-					sdp.sdp =sdp.sdp.replace("\r\n\r\n","\r\n");
-					sdp.sdp =sdp.sdp.replace("\r\n\r\n","\r\n");
 					that.local_sdp=sdp;
 					that.peerConn.setLocalDescription(sdp);
 					
@@ -192,7 +184,7 @@ define(['services/services','services/sharedScope'], function(services) {
 				
 				this.receivedInvite = function(ua, request) {
 					log("receivedInvite in State: "+that.state);
-					if(sharedScope.getCurrentCall()==that){
+					if(sharedScope.getCurrentCall()==that||true){
 					    if (that.state == sharedScope.IDLE) {
 					    	//received new INVITE. Answer with RINGING and Change to RINGING-State
 					    	log("incoming Invite");
@@ -503,9 +495,9 @@ define(['services/services','services/sharedScope'], function(services) {
 	    		       
 		        	m.setItem('Content-Type', new sip.Header("application/sdp", 'Content-Type'));
 //		        	var sdp=message.toSdp().replace(/^.*SHA1_32.*$/mg, "");
-		        	var sdp=message.sdp.replace(/^.*SHA1_32.*$/mg, "");
-		        	sdp =sdp.replace("\r\n\r\n","\r\n");
-		        	m.setBody(sdp);
+//		        	var sdp=message.sdp.replace(/^.*SHA1_32.*$/mg, "");
+//		        	sdp =sdp.replace("\r\n\r\n","\r\n");
+		        	m.setBody(message.sdp);
 		        }
 		        that.ua.sendRequest(m);
     		};
